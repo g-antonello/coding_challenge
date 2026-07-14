@@ -1,0 +1,26 @@
+# Ignore everything in the repository
+*
+
+# But DO NOT ignore directories, so we can recurse into them
+!*/
+
+# Now, whitelist the files formats to track
+!*.R
+!*.Rmd
+!*.rmd
+!*.Qmd
+!*.qmd
+!*.sh
+!*.md
+
+# And track .gitignore
+!.gitignore
+
+# ignore Macintosh's .DS_Store
+.DS_Store
+
+# ignore Google Cloud bucket authentication
+curatedmetagenomicdata-232f4a306d1d.json
+
+# Ignore the .Rproject objects
+.Rproj.user
