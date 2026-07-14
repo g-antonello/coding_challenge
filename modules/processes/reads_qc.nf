@@ -1,6 +1,6 @@
 process FASTP {
     tag "$read_id"
-    publishDir "${params.outdir}/qc/fastp", mode: 'copy'
+    publishDir "${params.outdir}/reads_qc", mode: 'copy'
 
     cpus 4
     memory '8 GB'

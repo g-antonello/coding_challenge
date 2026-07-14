@@ -6,7 +6,8 @@ nextflow.enable.dsl=2
 
 // Import modules
 include { FASTP } from "./modules/processes/reads_qc.nf"
-include { ALIGN_MINIMAP2; SAMTOOLS_MPILEUP } from "./modules/processes/alignments.nf"
+include { ALIGN_MINIMAP2 } from "./modules/processes/alignments.nf"
+include { MPILEUP; VARIANT_CALLING } from "./modules/processes/variant_calls.nf"
 // slurm setup
 
 
@@ -27,6 +28,9 @@ workflow {
     ALIGN_MINIMAP2(FASTP.out.trimmed, reference_ch.first())
 
 	// mpileup generation
-	SAMTOOLS_MPILEUP(ALIGN_MINIMAP2.out.bam, reference_ch.first())
+	MPILEUP(ALIGN_MINIMAP2.out.bam, reference_ch.first())
+
+	// variant calling
+	VARIANT_CALLING(MPILEUP.out.mpileup)
 
 }
