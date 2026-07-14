@@ -7,6 +7,9 @@
 work
 results
 
+# don't ignore dockerfiles
+!Dockerfile
+
 # Now, whitelist the files formats to track
 !*.R
 !*.Rmd
