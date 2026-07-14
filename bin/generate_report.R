@@ -105,8 +105,8 @@ report_2.0$decision <- ifelse(
   report_2.0$alt_depth > opts$min_read_depth & report_2.0$alt_freq  > opts$min_allele_freq,
   "PASS",
   ifelse(
-    report_2.0$alt_depth <= opts$min_read_depth &
-      report_2.0$alt_freq  <= opts$min_allele_freq,
+    report_2.0$alt_depth < opts$min_read_depth &
+      report_2.0$alt_freq  < opts$min_allele_freq,
     "FAIL",
     "WARN"
   )
