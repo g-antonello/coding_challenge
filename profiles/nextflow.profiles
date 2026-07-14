@@ -1,0 +1,11 @@
+profiles {
+
+    local {
+        process.executor = "local"
+    }
+
+    slurm {
+        process.executor = "slurm"
+        // process.queue // to be changed only if you know the queue, otherwise use standard one
+    }
+}
