@@ -1,4 +1,4 @@
-process FASTP {
+process QC_FASTP {
     tag "$read_id"
     publishDir "${params.outdir}/reads_qc", mode: 'copy'
 

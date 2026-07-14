@@ -32,8 +32,35 @@ process MPILEUP {
 
 }
 
-nextflow.enable.dsl = 2
+process VARIANT_CALLING_GATK {
+    tag "$read_id"
+    publishDir "${params.outdir}/variants", mode: 'copy'
 
+    // GATK can be resource-intensive; increased memory to 4 GB is safer
+    cpus 2
+    memory '4 GB'
+
+    input:
+    // 1. Accept the BAM and BAI (index) from ALIGN_MINIMAP2
+    tuple val(read_id), path(bam), path(bai)
+    // 2. Accept the 3-file indexed reference bundle
+    tuple path(ref_fna), path(ref_fai), path(ref_dict)
+
+    output:
+    // Output a standard GATK VCF file
+    tuple val(read_id), path("${read_id}.vcf"), emit: vcf
+
+    // mutect2 is considered the good way to go for bacterial variant calling
+    script:
+    """
+    gatk Mutect2 \\
+        -R ${ref_fna} \\
+        -I ${bam} \\
+        -O ${read_id}.vcf
+    """
+}
+
+// below older implementations
 process VARIANT_CALLING {
     tag "$read_id"
     publishDir "${params.outdir}/variants", mode: 'copy'
