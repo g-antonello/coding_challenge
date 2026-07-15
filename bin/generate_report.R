@@ -102,11 +102,11 @@ if(nrow(vcf_subset) == 0){
 
 # final step is a decision on call. this is arbitrary and will be subject to change
 report_2.0$decision <- ifelse(
-  report_2.0$alt_depth > opts$min_read_depth & report_2.0$alt_freq  > opts$min_allele_freq,
+  report_2.0$alt_depth >= opts$min_read_depth & report_2.0$alt_freq  >= opts$min_allele_freq,
   "PASS",
   ifelse(
-    report_2.0$alt_depth < opts$min_read_depth &
-      report_2.0$alt_freq  < opts$min_allele_freq,
+    report_2.0$alt_depth < opts$min_read_depth -1 &
+      report_2.0$alt_freq  < opts$min_allele_freq - 0.01,
     "FAIL",
     "WARN"
   )
